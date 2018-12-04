@@ -12,7 +12,16 @@ String.split(input, "\n", trim: true)
 
 # Problem 1 with file
 {:ok, contents} = File.read("../input.txt")
-String.split(contents, "\n", trim: true)
+contents
+|> String.split("\n", trim: true)
 |> Enum.map(fn x -> String.to_integer(x) end)
+|> Enum.sum
+|> IO.inspect
+
+# Problem 1 with file (more efficient alternative by providing "recipies")
+{:ok, contents} = File.read("../input.txt")
+contents
+|> String.splitter("\n", trim: true)
+|> Stream.map(fn x -> String.to_integer(x) end)
 |> Enum.sum
 |> IO.inspect

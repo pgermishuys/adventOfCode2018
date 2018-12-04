@@ -26,7 +26,7 @@ contents
 |> Enum.sum
 |> IO.inspect
 
-# Problem 2 with file (more efficient alternative by providing "recipies")
+# Problem 2 with file
 {:ok, contents} = File.read("../input.txt")
 contents
 |> String.splitter("\n", trim: true)

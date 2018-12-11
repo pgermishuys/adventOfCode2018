@@ -1,0 +1,38 @@
+defmodule Day2 do
+  def compute_checksum(items) do
+    items
+    |> String.splitter("\n", trim: true)
+    |> Enum.map(fn x -> 
+        boxId = String.trim x
+        map = count_characters boxId
+        Enum.uniq_by(map, fn {_k, v} -> v end)
+      end)
+    |> checksum
+  end
+  def checksum(items) do
+    count_twos(items) * count_threes(items)
+  end
+  def count_characters(string) do
+    string
+    |> String.to_charlist()
+    |> Enum.reduce(%{}, fn codepoint, acc ->
+        Map.update(acc, codepoint, 1, fn x -> x + 1 end)
+      end)
+  end
+  def count_twos(items) do
+    items
+    |> Enum.filter(&has_twos?/1)
+    |> Enum.count()
+  end
+  def count_threes(items) do
+    items
+    |> Enum.filter(&has_threes?/1)
+    |> Enum.count()
+  end
+  defp has_twos?(items) do
+    Enum.any?(items, fn {_, count} -> count == 2 end)
+  end
+  defp has_threes?(items) do
+    Enum.any?(items, fn {_, count} -> count == 3 end)
+  end
+end

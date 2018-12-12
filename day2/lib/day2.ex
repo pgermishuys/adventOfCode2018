@@ -35,4 +35,27 @@ defmodule Day2 do
   defp has_threes?(items) do
     Enum.any?(items, fn {_, count} -> count == 3 end)
   end
+
+  def compute_difference(items) do
+    words = items
+    |> String.splitter("\n", trim: true)
+    |> Enum.map(fn x -> 
+        String.trim x
+      end)
+
+    words
+    |> Enum.map(fn x ->
+      for item <- words do
+        result = String.graphemes(x) -- String.graphemes(item)
+        if Enum.count(result) == 1 do 
+          x = String.replace(x, Enum.at(result, 0), "")
+          IO.inspect x
+          x
+        end
+      end
+    end)
+    |> List.flatten
+    |> Enum.filter(fn x -> !is_nil(x) end)
+    |> Enum.at(0)
+  end
 end

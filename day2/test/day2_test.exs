@@ -23,6 +23,24 @@ defmodule Day2Test do
 
   test "computes checksum with input" do
     {:ok, contents} = File.read("input.txt")
-    assert Day2.compute_checksum(contents) == 12
+    assert Day2.compute_checksum(contents) == 7533
+  end
+
+  test "computes changes in boxids" do
+    input = "
+      abcde
+      fghij
+      klmno
+      pqrst
+      fguij
+      axcye
+      wvxyz
+    "
+    assert Day2.compute_difference(input) == "fgij"
+  end
+
+  test "computes changes in boxids with input" do
+    {:ok, contents} = File.read("input.txt")
+    assert Day2.compute_difference(contents) == "fgij"
   end
 end
